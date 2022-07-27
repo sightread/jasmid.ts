@@ -1,4 +1,4 @@
-import { BufferReader } from "./BufferReader"
+import { BufferReader } from "./BufferReader.js"
 
 export type MidiEvent =
   | { type: "meta"; subType: "sequenceNumber"; typeByte: number; subTypeByte: number; deltaTime: number; number: number }

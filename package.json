@@ -1,27 +1,23 @@
 {
-  "name": "jasmid.ts",
-  "version": "2.1.0",
-  "main": "lib",
+  "name": "@sightread/jasmid.ts",
+  "version": "2.1.1",
+  "main": "lib/index.js",
   "types": "lib",
+  "type": "module",
   "esnext": "src",
-  "files": [
-    "bin",
-    "lib",
-    "src"
-  ],
+  "files": [ "lib", "src" ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pravdomil/jasmid.ts.git"
+    "url": "https://github.com/sightread/jasmid.ts"
   },
   "scripts": {
-    "build": "babel src -d lib -x '.js,.jsx,.ts,.tsx' && tsc --noEmit false --emitDeclarationOnly --declaration --outDir lib",
-    "watch": "babel src -d lib -x '.js,.jsx,.ts,.tsx' -w",
-    "prepare": "npm run build"
+    "build": "npm run build-lib && npm run build-types",
+    "build-lib": "esbuild src/*.ts --outdir=lib",
+    "build-types": "tsc --emitDeclarationOnly --declaration --outDir lib src/index.ts",
+    "publish": "npm run build && npm publish --access=public"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-rc.3",
-    "@babel/core": "^7.0.0-rc.3",
-    "@babel/preset-env": "^7.0.0-rc.3",
-    "@babel/preset-typescript": "^7.0.0-rc.3"
+    "esbuild": "0.14.50",
+    "typescript": "4.7.4"
   }
 }
