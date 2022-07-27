@@ -1,18 +1,28 @@
 {
   "name": "@sightread/jasmid.ts",
-  "version": "2.1.1",
-  "main": "lib/index.js",
-  "types": "lib",
+  "version": "2.1.5",
   "type": "module",
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
+  "types": "lib",
   "esnext": "src",
-  "files": [ "lib", "src" ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "exports": {
+    "import": "./lib/index.js",
+    "require": "./lib/index.cjs"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sightread/jasmid.ts"
   },
   "scripts": {
-    "build": "npm run build-lib && npm run build-types",
-    "build-lib": "esbuild src/*.ts --outdir=lib",
+    "build": "npm run build-lib-cjs && npm run build-lib-mjs && npm run build-types",
+    "build-lib-cjs": "esbuild src/*.ts --outdir=lib --format=cjs --out-extension:.js=.cjs && npm run fix-cjs-extension",
+    "fix-cjs-extension": "sh scripts/fix-cjs.sh",
+    "build-lib-mjs": "esbuild src/*.ts --outdir=lib --format=esm --out-extension:.js=.js",
     "build-types": "tsc --emitDeclarationOnly --declaration --outDir lib src/index.ts",
     "publish": "npm run build && npm publish --access=public"
   },
